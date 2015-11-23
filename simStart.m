@@ -1,18 +1,26 @@
-function simStart
+function data = simStart(graphics)
 
 global world;
+
+data = zeros([world.maxIter,size(world.sensors{1}.taxels,1)]);
 
 for currentStep = 1:world.maxIter;
     disp(currentStep*world.stepSize);
     updateObjects(currentStep);
     updateSensors;
-    updateGraphics;
+    
+    %this currently only handles one sensor
+    data(currentStep,:) = readSensors;
+    
+    if graphics
+        updateGraphics;
+    end
 end
 end
 
 function loadSim
 
-display('This function should load simulation parameters');
+%display('This function should load simulation parameters');
 global world;
 world.maxIter = 100;
 world.stepSize = 1;
@@ -28,7 +36,7 @@ end
 
 function updateObjects(currentStep)
 
-display('This function should update object position');
+%display('This function should update object position');
 global world;
 
 for obj = 1:length(world.objects)
@@ -39,7 +47,7 @@ end
 
 function updateSensors
 
-display('This function should update sensor values');
+%display('This function should update sensor values');
 global world;
 
 for sen = 1:length(world.sensors);
@@ -51,9 +59,22 @@ end
 
 end
 
+function data = readSensors
+%this currently only reads the first sensor, need to fix
+data = [];
+
+%display('This function should update sensor values');
+global world;
+
+for sen = 1:1 %length(world.sensors)
+    data = [data; readSensor(world.sensors{sen})];
+end
+
+end
+
 function updateGraphics
 
-display('This function should update graphics');
+%display('This function should update graphics');
 global world;
 
 %access correct figure;

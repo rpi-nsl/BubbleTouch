@@ -18,7 +18,8 @@ gx = spherex+x;
 gy = spherey+y;
 gz = spherez+z;
 
-senh = surf(gx,gy,gz);
+senh = surf(gx,gy,gz,ones(size(gz)));
+set(senh,'FaceColor',[1,0,0]);
 axis equal;
 
 end
