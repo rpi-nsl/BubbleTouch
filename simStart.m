@@ -78,6 +78,10 @@ function updateGraphics
 global world;
 
 %access correct figure;
+if isempty(world.scene)
+    world.scene = figure;
+    view([0,1,0]);
+end
 figure(world.scene);
 %clear figure
 cla;
@@ -92,6 +96,8 @@ end
 for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen});
 end
+
+%view([1,0,0]);
 
 %update figure;
 drawnow limitrate

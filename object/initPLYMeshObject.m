@@ -18,7 +18,8 @@ c = read_ply(filename);
 
 r = pdist2(c,c,'euclidean','Smallest',2);
 r = r(2,:)';
-r = .001*ones(size(r));
+% r = .001*ones(size(r));
+r = 2*mean(r)*ones(size(r));
 object.shape = [c,r]; %[x,y,z,r]
 
 end

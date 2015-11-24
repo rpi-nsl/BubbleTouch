@@ -9,6 +9,6 @@ world.objects = [];
 %world.addSensor(initRectangularSensor(10,10,1,0,2));
 %addObject(initSphereObject(10));
 
-world.scene = figure;
+world.scene = [];
 
 end
