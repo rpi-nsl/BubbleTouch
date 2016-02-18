@@ -20,6 +20,7 @@ gy = spherey.*r+y;
 gz = spherez.*r+z;
 
 objh = surf(gx,gy,gz);
+set(objh,'FaceColor',[0,0,1]);
 axis equal;
 
 end

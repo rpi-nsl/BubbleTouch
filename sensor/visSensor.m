@@ -1,6 +1,6 @@
 figure;
 maxz = max(max(data));
-for i=1:1500
+for i=1:1000
     
     shot = data(i,:);
     n = sqrt(length(shot));
