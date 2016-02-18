@@ -4,6 +4,10 @@ global world;
 
 data = zeros([world.maxIter,size(world.sensors{1}.taxels,1)]);
 
+world.video = VideoWriter('data/drillvideo.avi');
+world.video.FrameRate = 10;
+open(world.video);
+
 for currentStep = 1:world.maxIter;
     disp(currentStep*world.stepSize);
     updateObjects(currentStep);
@@ -16,6 +20,8 @@ for currentStep = 1:world.maxIter;
         updateGraphics;
     end
 end
+
+close(world.video);
 end
 
 function loadSim
@@ -30,7 +36,7 @@ world.objects = [];
 %world.addSensor(initRectangularSensor(10,10,1,0,2));
 addObject(initSphereObject(10));
 
-world.scene = figure;
+world.scene = figure('units','normalized','outerposition',[0 0 1 1]);
 
 end
 
@@ -79,14 +85,15 @@ global world;
 
 %access correct figure;
 if isempty(world.scene)
-    world.scene = figure;
+    world.scene = figure('units','normalized','outerposition',[0 0 1 1]);
     view([0,1,0]);
 end
 figure(world.scene);
 %clear figure
 cla;
-hold on;
 
+subh1 = subplot(1,2,1);
+hold on;
 %draw object
 for obj = 1:length(world.objects);
     drawObject(world.objects{obj});
@@ -97,9 +104,28 @@ for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen});
 end
 
-%view([1,0,0]);
+view([0,0,1]);
+
+subh2 = subplot(1,2,2);
+copyh = findobj('Parent',world.scene,'Type','axes');
+copyobj(get(copyh(2),'Children'),subh2);
+axis equal
+% hold on;
+% %draw object
+% for obj = 1:length(world.objects);
+%     drawObject(world.objects{obj});
+% end
+% 
+% %draw sensors
+% for sen = 1:length(world.sensors);
+%     drawSensor(world.sensors{sen});
+% end
+view([0,-1,0]);
 
 %update figure;
-drawnow limitrate
+drawnow %limitrate
+
+frame = getframe(world.scene);
+writeVideo(world.video,frame);
 
 end

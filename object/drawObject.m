@@ -19,8 +19,8 @@ gx = spherex.*r+x;
 gy = spherey.*r+y;
 gz = spherez.*r+z;
 
-objh = surf(gx,gy,gz);
-set(objh,'FaceColor',[0,0,1]);
+objh = surf(gx,gy,gz,'EdgeColor','none','LineStyle','none','FaceColor',[0,0,.6],'FaceLighting','phong');
+% set(objh,'FaceColor',[0,0,1]);
 axis equal;
 
 end

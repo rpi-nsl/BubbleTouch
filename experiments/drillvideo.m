@@ -1,4 +1,4 @@
-initWorld(1000,.01);
+initWorld(100,.1);
 
 object = initPLYMeshObject('drill.ply');
 object = setObjPosition(object,[-.1;-.02;.05]);
@@ -10,10 +10,10 @@ velocities = [0,0,0;
 object = addPlan(object,times,velocities);
 addObject(object);
 
-% sensor = initRectangularSensor(64,64,.0025,0,.02);
-sensor = initRectangularSensor(100,100,.0015,0,.02);
+sensor = initRectangularSensor(64,64,.0025,0,.02);
+% sensor = initRectangularSensor(100,100,.0015,0,.02);
 addSensor(sensor);
 
-data = simStartVideo(true);
+data = simStart(true);
 
-% save('data/drillvideo.mat','data');
+save('data/drillvideo.mat','data');
