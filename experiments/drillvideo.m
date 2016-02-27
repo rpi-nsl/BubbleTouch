@@ -1,10 +1,10 @@
-initWorld(100,.1);
+initWorld(1000,.1);
 
 object = initPLYMeshObject('drill.ply');
 object = setObjPosition(object,[-.1;-.02;.05]);
 object = setObjOrientation(object,kth2R([0,1,0],pi/2)*kth2R([0,0,1],pi/4+pi/16));
 object = setObjVelocity(object,[0;0;-.01]);
-times = [1.5;3];
+times = [2;3];
 velocities = [0,0,0;
               -.01,.005,0];
 object = addPlan(object,times,velocities);
