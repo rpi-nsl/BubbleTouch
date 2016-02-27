@@ -11,4 +11,7 @@ world.objects = [];
 
 world.scene = [];
 
+%quasi-static variables
+world.gravity = [0;0;-9.8];
+
 end

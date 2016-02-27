@@ -38,6 +38,8 @@ addObject(initSphereObject(10));
 
 world.scene = figure('units','normalized','outerposition',[0 0 1 1]);
 
+world.gravity = [0;0;-9.8];
+
 end
 
 function updateObjects(currentStep)
@@ -78,6 +80,8 @@ end
 
 end
 
+%TODO: make it easy to pick with style graphics I want
+%TODO: make it easier to draw sensor readings (i.e., different shapes)
 function updateGraphics
 
 %display('This function should update graphics');
@@ -92,7 +96,8 @@ figure(world.scene);
 %clear figure
 cla;
 
-subh1 = subplot(1,2,1);
+% subh1 = subplot(1,2,1); title('Geometric view');
+cla;
 hold on;
 %draw object
 for obj = 1:length(world.objects);
@@ -104,28 +109,19 @@ for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen});
 end
 
-view([0,0,1]);
-
-subh2 = subplot(1,2,2);
-copyh = findobj('Parent',world.scene,'Type','axes');
-copyobj(get(copyh(2),'Children'),subh2);
-axis equal
-% hold on;
-% %draw object
-% for obj = 1:length(world.objects);
-%     drawObject(world.objects{obj});
-% end
-% 
-% %draw sensors
-% for sen = 1:length(world.sensors);
-%     drawSensor(world.sensors{sen});
-% end
 view([0,-1,0]);
 
-%update figure;
-drawnow %limitrate
+% subh2 = subplot(1,2,2);
+% cla;
+% pcolor(reshape(readSensors,[64,64])); title('Ground Truth Signal'); caxis([0,.02]);
+% axis equal;
 
-frame = getframe(world.scene);
-writeVideo(world.video,frame);
+%update figure;
+drawnow limitrate;
+
+
+%uncomment to make video
+% frame = getframe(world.scene);
+% writeVideo(world.video,frame);
 
 end

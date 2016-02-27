@@ -1,6 +1,9 @@
 function object = initSphereObject(radius)
 %this function generates a default object sphere.
 
+%id is way of distiguishing grouped objects
+object.id = 0; %zero indicates not added to world
+
 object.position = [0;0;0];
 object.orientation = [1,0,0;
                       0,1,0;
@@ -14,6 +17,11 @@ object.plan = [];
 object.planStep = 0;
 
 object.shape = [0,0,0,radius]; %[x,y,z,r]
+
+%quasi-static variables
+object.cog = [0;0;0];
+object.mass = 1;
+object.qsForceConstant = 1;
 
 end
 

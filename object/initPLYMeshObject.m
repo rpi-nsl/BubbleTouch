@@ -1,6 +1,9 @@
 function object = initPLYMeshObject(filename)
 %this function generates a default object using a ply mesh for the shape
 
+%id is way of distiguishing grouped objects
+object.id = 0; %zero indicates not added to world
+
 object.position = [0;0;0];
 object.orientation = [1,0,0;
                       0,1,0;
@@ -21,5 +24,10 @@ r = r(2,:)';
 % r = .001*ones(size(r));
 r = 2*mean(r)*ones(size(r));
 object.shape = [c,r]; %[x,y,z,r]
+
+%quasi-static variables
+object.cog = mean(c)';
+object.mass = 1;
+object.qsForceConstant = 1;
 
 end

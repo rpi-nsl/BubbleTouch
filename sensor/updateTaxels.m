@@ -16,7 +16,7 @@ objSpheres = [objCentersinSFrame',object.shape(:,4)];
 % find the distance from object's spheres to the taxel columns (essentially
 % flatten spheres to the plane)
 D = pdist2(sensor.taxels(:,1:2),objSpheres(:,1:2)) - kron(objSpheres(:,4)',ones(size(sensor.taxels,1),1)) - sensor.RADIUS;
-% find all taxels with at least on sphere in its column.
+% find all taxels with at least one sphere in its column.
 taxelInd = find(min(D,[],2) < 0);
 
 %% update taxel positions
@@ -35,6 +35,7 @@ for i = 1:length(taxelInd)
     % only updates if this taxel needs to be further pressed
     if zhat < sensor.taxels(j,3)
         sensor.taxels(j,3) = zhat;
+        sensor.taxelsContact(j) = object.id;
     end
 end
 end

@@ -1,6 +1,8 @@
 function object = initSmartBoxObject(blength,bwidth,bheight,maxResolution)
 %this function generates a rectangular prism shell out of spheres
 
+%id is way of distiguishing grouped objects
+object.id = 0; %zero indicates not added to world
 
 object.position = [0;0;0];
 object.orientation = [1,0,0;
@@ -66,4 +68,9 @@ left = [max(L)*ones(size(leftW)),leftW,leftH,radius*ones(size(leftW))];
 right = [min(L)*ones(size(leftW)),leftW,leftH,radius*ones(size(leftW))];
 
 object.shape = [top;bottom;left;right;front;back];
+
+%quasi-static variables
+object.cog = [0;0;0];
+object.mass = 1;
+object.qsForceConstant = 1;
 end
