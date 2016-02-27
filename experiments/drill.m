@@ -10,10 +10,10 @@ velocities = [0,0,0;
 object = addPlan(object,times,velocities);
 addObject(object);
 
-% sensor = initRectangularSensor(64,64,.0025,0,.02);
-sensor = initRectangularSensor(100,100,.0015,0,.02);
+sensor = initRectangularSensor(64,64,.0025,0,.02);
+% sensor = initRectangularSensor(100,100,.0015,0,.02);
 addSensor(sensor);
 
 data = simStart(true);
 
-save('data/drill100.mat','data');
+% save('data/drill100.mat','data');
