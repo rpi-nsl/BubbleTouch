@@ -26,7 +26,7 @@ for i = 1:length(taxelInd)
     o = find(D(j,:) < 0);
     % for every taxel with a sphere in the column, calculate the minimum 
     % height the taxel needs to be to be in contact with an object sphere.
-    zhat = min(objSpheres(o,3) - ((objSpheres(o,4)+sensor.RADIUS).^2 ...
+    [zhat,o_ind] = min(objSpheres(o,3) - ((objSpheres(o,4)+sensor.RADIUS).^2 ...
                   - (sensor.taxels(j,1)-objSpheres(o,1)).^2 ...
                   - (sensor.taxels(j,2)-objSpheres(o,2)).^2 ).^(.5));
     if zhat < sensor.MINZ
@@ -35,7 +35,7 @@ for i = 1:length(taxelInd)
     % only updates if this taxel needs to be further pressed
     if zhat < sensor.taxels(j,3)
         sensor.taxels(j,3) = zhat;
-        sensor.taxelsContact(j) = object.id;
+        sensor.taxelsContact(j,:) = [object.id, o(o_ind)];
     end
 end
 end

@@ -20,6 +20,6 @@ sensor.taxels(:,2) = (floor((i-1)/sizeX)-.5*(sizeY-1))*2*sensor.RADIUS;
 
 %quasi-static variables
 sensor.springConstant = 1;
-sensor.taxelsContact = zeros(sizeX*sizeY,1);
+sensor.taxelsContact = -ones(sizeX*sizeY,2); %col 1: object, col 2: sphere
 
 end

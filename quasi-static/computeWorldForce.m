@@ -2,7 +2,11 @@ function force = computeWorldForce(object)
 
 global world;
 
-%do I need force in object frame (object cog frame)?
+%compute force of gravity
 force = world.gravity*object.mass;
+
+%convert to object frame
+force = object.orientation'*force;
+
 
 end
