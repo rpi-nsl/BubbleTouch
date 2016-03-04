@@ -22,6 +22,7 @@ object.shape = [0,0,0,radius]; %[x,y,z,r]
 object.cog = [0;0;0];
 object.mass = 1;
 object.qsForceConstant = 1;
+object.inertia = eye(3)*radius*radius*2/5;
 
 end
 

@@ -1,4 +1,5 @@
-initWorld(100,.01);
+numSteps = 100; timestep = 0.01;
+initWorld(numSteps,timestep);
 setGravity([0;0;-1]);
 
 
@@ -6,7 +7,8 @@ object = initBoxObject(.10,.05,.02,.005);
 object = setObjPosition(object,[0;0;.04]);
  object = setObjOrientation(object,kth2R([0,1,0],pi/20));
 % object = setObjVelocity(object,[0;0;-.01]);
-object = setObjQSForceConstant(object,.1);
+% object = setObjQSForceConstant(object,.1);
+object = computeObjQSConstants(object,timestep);
 addObject(object);
 
 sensor = initRectangularSensor(64,64,.0025,0,.02);

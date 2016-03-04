@@ -29,5 +29,7 @@ object.shape = [c,r]; %[x,y,z,r]
 object.cog = mean(c)';
 object.mass = 1;
 object.qsForceConstant = 1;
+object = computeObjInertiaTensor(object);
+object.qsTorqueConstant = inv(qsTorqueConstant);
 
 end

@@ -44,7 +44,7 @@ end
 object.velocity = object.qsForceConstant*object.orientation*force;% + object.velocity;
 %TODO: add angularVelocity to object
 %TODO: specific qs constants for both force and torque
-angularVelocity = 20*object.orientation*torque;
+angularVelocity = object.orientation*object.qsTorqueConstant*torque;
 %update position
 object.position = object.position + object.velocity*stepSize;
 %update orientation
