@@ -10,6 +10,7 @@ object.orientation = [1,0,0;
                       0,1,0;
                       0,0,1];
 object.velocity = [0;0;0];
+object.angularVelocity = [0;0;0];
 
 %plan is a set of times (timestep t) when the velocity (future: acceration)
 %changes and the new velocities (v)

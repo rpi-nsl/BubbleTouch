@@ -13,5 +13,10 @@ world.scene = [];
 
 %quasi-static variables
 world.gravity = [0;0;-9.8];
+%how much previous velocity is remembered
+world.damper = 1;
+
+%video
+world.record = false;
 
 end

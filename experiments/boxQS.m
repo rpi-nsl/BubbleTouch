@@ -1,6 +1,10 @@
+filename = 'boxQSMemoryLessg9_8';
+
 numSteps = 100; timestep = 0.01;
 initWorld(numSteps,timestep);
-setGravity([0;0;-1]);
+setWorldDamper(0);
+setGravity([0;0;-9.8]);
+setRecordOn(filename);
 
 
 object = initBoxObject(.10,.05,.02,.005);
@@ -13,9 +17,13 @@ addObject(object);
 
 sensor = initRectangularSensor(64,64,.0025,0,.02);
 % sensor = initRectangularSensor(100,100,.0015,0,.02);
+
+%from riman, max sensor pressure = 4.46kgf/cm^2
+sensor = computeSensorSpringConstant(sensor,4.46*9.8*10000);
+sensor = setSensorSpringConstant(sensor,.1*sensor.springConstant);
 addSensor(sensor);
 
 data = simStart(true);
 
 
-% save('data/box100.mat','data');
+save(strcat('data/',filename,'.mat'),'data');

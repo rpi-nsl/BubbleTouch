@@ -1,5 +1,8 @@
-initWorld(100,.01);
+numSteps = 100; timestep = 0.01;
+initWorld(numSteps,timestep);
+setWorldDamper(.9);
 setGravity([0;0;-1]);
+setRecordOn(filename);
 
 object = initPLYMeshObject('drill.ply');
 object = setObjPosition(object,[-.1;-.02;.05]);

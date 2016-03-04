@@ -41,16 +41,19 @@ end
 %TODO: torque
 
 %update velocity
-object.velocity = object.qsForceConstant*object.orientation*force;% + object.velocity;
-%TODO: add angularVelocity to object
-%TODO: specific qs constants for both force and torque
-angularVelocity = object.orientation*object.qsTorqueConstant*torque;
+%with Memory
+object.velocity = object.qsForceConstant*object.orientation*force + world.damper*object.velocity;
+object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
+%MemoryLess
+%object.velocity = object.qsForceConstant*object.orientation*force;
+%object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
+
 %update position
 object.position = object.position + object.velocity*stepSize;
 %update orientation
-object.orientation = object.orientation + matcross(angularVelocity)*object.orientation*stepSize;
+object.orientation = object.orientation + matcross(object.angularVelocity)*object.orientation*stepSize;
 
-disp('torque:')
-disp(torque);
+% disp('torque:')
+% disp(torque);
 
 end

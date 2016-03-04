@@ -4,10 +4,11 @@ global world;
 
 data = zeros([world.maxIter,size(world.sensors{1}.taxels,1)]);
 
-world.video = VideoWriter('data/drillvideo.avi');
-world.video.FrameRate = 10;
-open(world.video);
-
+if world.record
+%     world.video = VideoWriter('data/video.avi'); %named in setRecordOn
+    world.video.FrameRate = 10;
+    open(world.video);
+end
 for currentStep = 1:world.maxIter;
     disp(currentStep*world.stepSize);
     updateObjects(currentStep);
@@ -21,7 +22,9 @@ for currentStep = 1:world.maxIter;
     end
 end
 
-close(world.video);
+if world.record
+    close(world.video);
+end
 end
 
 function loadSim
@@ -97,7 +100,9 @@ figure(world.scene);
 %clear figure
 cla;
 
-% subh1 = subplot(1,2,1); title('Geometric view');
+if world.record
+    subh1 = subplot(1,2,1); title('Geometric view');
+end
 cla;
 hold on;
 %draw object
@@ -112,17 +117,23 @@ end
 
 view([0,-1,0]);
 
-% subh2 = subplot(1,2,2);
-% cla;
-% pcolor(reshape(readSensors,[64,64])); title('Ground Truth Signal'); caxis([0,.02]);
-% axis equal;
+if world.record
+    subh2 = subplot(1,2,2);
+    cla;
+    pcolor(reshape(readSensors,[64,64])); title('Ground Truth Signal'); caxis([0,.02]);
+    axis equal;
+end
 
 %update figure;
-drawnow limitrate;
+if ~world.record
+    drawnow limitrate;
+end
 
 
 %uncomment to make video
-% frame = getframe(world.scene);
-% writeVideo(world.video,frame);
+if world.record
+  frame = getframe(world.scene);
+  writeVideo(world.video,frame);
+end
 
 end
