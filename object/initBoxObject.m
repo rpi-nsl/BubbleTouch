@@ -72,5 +72,6 @@ object.qsForceConstant = 1;
 object.inertia = [.25*(bwidth*bwidth+bheight*bheight)/3 0 0;
                   0 .25*(blength*blength+bheight*bheight)/3 0;
                   0 0 .25*(blength*blength+bwidth*bwidth)/3];
+object.qsTorqueConstant = eye(3);
 
 end

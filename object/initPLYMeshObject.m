@@ -31,6 +31,6 @@ object.cog = mean(c)';
 object.mass = 1;
 object.qsForceConstant = 1;
 object = computeObjInertiaTensor(object);
-object.qsTorqueConstant = inv(qsTorqueConstant);
+object.qsTorqueConstant = eye(3);
 
 end
