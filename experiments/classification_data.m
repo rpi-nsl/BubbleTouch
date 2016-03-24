@@ -1,5 +1,5 @@
 %% World
-numSteps = 10; timestep = 0.01;
+numSteps = 100; timestep = 0.01;
 initWorld(numSteps,timestep);
 
 
@@ -40,7 +40,7 @@ for mesh_iter = 1:length(mesh)
 
     %start experiment
     setRecordOn(filename);
-    data = simStart(false);
+    data = simStart(true);
 
     %save data
     save(strcat('data/',filename,'.mat'),'data');
