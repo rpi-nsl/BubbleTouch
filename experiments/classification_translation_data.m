@@ -7,8 +7,8 @@ initWorld(numSteps,timestep);
 sensor = initRectangularSensor(64,64,.002,0,.02);
 addSensor(sensor);
 
-minT = -20;
-maxT = 20;
+minT = -20; %millimeters
+maxT = 20;  %millimeters
 stepSizeT = 3;
 for translationX = minT:stepSizeT:maxT
     for translationY = minT:stepSizeT:maxT
@@ -54,7 +54,7 @@ for translationX = minT:stepSizeT:maxT
             data = simStart(true);
 
             %save data
-            save(strcat('data/classification_data_translation/',filename,'.mat'),'data');
+            save(strcat('data/classification_data/translation/',filename,'.mat'),'data');
         end
     end
 end
