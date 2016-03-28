@@ -1,5 +1,5 @@
 %% World
-numSteps = 1; timestep = 0.01;
+numSteps = 100; timestep = 0.01;
 initWorld(numSteps,timestep);
 
 
@@ -7,7 +7,7 @@ initWorld(numSteps,timestep);
 sensor = initRectangularSensor(64,64,.002,0,.02);
 addSensor(sensor);
 
-for rotationAngle = 0:10:350
+for rotationAngle = 0:10:350 %degrees
 
     rotationMatrix = kth2R([0;0;1],rotationAngle*pi/180);
 
@@ -51,6 +51,6 @@ for rotationAngle = 0:10:350
         data = simStart(true);
 
         %save data
-        save(strcat('data/',filename,'.mat'),'data');
+        save(strcat('data/classification_data/rotation/',filename,'.mat'),'data');
     end
 end
