@@ -2,7 +2,7 @@ filename = 'cupQSWithHalfMemoryg9_8';
 
 numSteps = 100; timestep = 0.01;
 initWorld(numSteps,timestep);
-setWorldDamper(.5);
+setWorldDamper(0);
 setGravity([0;0;-9.8]);
 setRecordOn(filename);
 

@@ -14,6 +14,6 @@ sensor = initRectangularSensor(64,64,.0025,0,.02);
 % sensor = initRectangularSensor(100,100,.0015,0,.02);
 addSensor(sensor);
 
-data = simStart(true);
+data = simStart(false);
 
-% save('data/drill100.mat','data');
+save('data/drill64.mat','data');
