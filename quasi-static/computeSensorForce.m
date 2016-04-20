@@ -27,7 +27,12 @@ cTaxels = sensor.taxels(taxelsInd,:);
 cTaxels = sensor.orientation*(cTaxels)'+kron(sensor.position,ones(1,size(cTaxels,1)));
 %convert to object frame
 cTaxels = object.orientation'*(cTaxels-kron(object.position,ones(1,size(cTaxels,2))));
-%get direction 
-contactLocations = cTaxels - object.shape(sensor.taxelsContact(taxelsInd,2),1:3)';
+%get direction from taxel to object
+contactNormals = object.shape(sensor.taxelsContact(taxelsInd,2),1:3)' - cTaxels;
+%normalize direction
+contactNormals = contactNormals./(sensor.RADIUS+kron(object.shape(sensor.taxelsContact(taxelsInd,2),4)',ones(3,1)));
 %get location
-contactLocations = contactLocations.*(sensor.RADIUS-kron(object.shape(sensor.taxelsContact(taxelsInd,2),4)',ones(3,1)))/sensor.RADIUS + cTaxels;
+contactLocations = contactNormals.*sensor.RADIUS + cTaxels;
+
+%update force to correct direction
+force = kron(sum(force.*contactNormals,1),ones(3,1)).*contactNormals;

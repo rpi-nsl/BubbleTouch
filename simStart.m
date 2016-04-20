@@ -51,8 +51,8 @@ function updateObjects(currentStep)
 global world;
 
 for obj = 1:length(world.objects)
-    world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
-%     world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
+%     world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
+    world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
 end
 
 end
