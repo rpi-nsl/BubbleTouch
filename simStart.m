@@ -4,6 +4,10 @@ global world;
 
 data = zeros([world.maxIter,size(world.sensors{1}.taxels,1)]);
 
+%initialize sensor values (make sure currently set so can correctly update
+%object.
+updateSensors;
+
 if world.record
 %     world.video = VideoWriter('data/video.avi'); %named in setRecordOn
     world.video.FrameRate = 10;
@@ -65,7 +69,7 @@ global world;
 for sen = 1:length(world.sensors);
     world.sensors{sen} = resetSensorValues(world.sensors{sen});
     for obj = 1:length(world.objects)
-        world.sensors{sen} = updateTaxels(world.sensors{sen},world.objects{obj});
+        [world.sensors{sen},world.objects{obj}] = updateTaxels(world.sensors{sen},world.objects{obj});
     end
 end
 
