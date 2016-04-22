@@ -21,6 +21,8 @@ for currentStep = 1:world.maxIter;
     %this currently only handles one sensor
     data(currentStep,:) = readSensors;
     
+%     display(max(data(currentStep,:)));
+    
     if graphics
         updateGraphics;
     end
