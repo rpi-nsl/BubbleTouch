@@ -47,7 +47,7 @@ for translationX = minT:stepSizeT:maxT
             filename = strcat(sport{ball_iter},'_translationx',...
                 num2str(translationX),'translationy',num2str(translationY),'_saturated_classification');
             ball = initSphereObject(diameter(ball_iter)/2);
-            ball = setObjPosition(ball,[0;0;diameter(ball_iter)/2+0.025]);
+            ball = setObjPosition(ball,[translationX*.001;translationY*.001;diameter(ball_iter)/2+0.025]);
             ball = setObjMass(ball,mass(ball_iter));
             ball = setObjInertiaTensor(ball,mass(ball_iter)*eye(3)*diameter(ball_iter)^2/4*2/5);
             addObject(ball);
