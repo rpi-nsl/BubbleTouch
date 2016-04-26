@@ -5,6 +5,9 @@ function [sensor,object] = updateTaxels(sensor,object)
 % values and then this function is called for each object.
 update = true;
 
+%slack for resolution of matlab
+epsilon = 10^-10;
+
 while update
     %% convert object into sensor frame
     % first convert it into world frame
@@ -33,10 +36,12 @@ while update
         [zhat,o_ind] = min(objSpheres(o,3) - ((objSpheres(o,4)+sensor.RADIUS).^2 ...
                       - (sensor.taxels(j,1)-objSpheres(o,1)).^2 ...
                       - (sensor.taxels(j,2)-objSpheres(o,2)).^2 ).^(.5));
-        if zhat < sensor.MINZ
+        if zhat < sensor.MINZ - epsilon 
             update = true;
             update_dist = [0;0;sensor.MINZ - zhat];
-            object.position = object.position+object.orientation'*sensor.orientation*update_dist;
+            %position is in world corredinates, so updates should be made
+            %in world cordinates
+            object.position = object.position+sensor.orientation*update_dist;
             %should set this sensor to min value, reposition the object to
             %enforce this, and then recheck all other sensor positions (should
             %also make this a micro step so rotation occurs more correctly).

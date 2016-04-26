@@ -2,11 +2,13 @@ function data = simStart(graphics)
 
 global world;
 
-data = zeros([world.maxIter,size(world.sensors{1}.taxels,1)]);
+data = zeros([world.maxIter*world.sampleRate/world.stepSize,size(world.sensors{1}.taxels,1)]);
 
 %initialize sensor values (make sure currently set so can correctly update
 %object.
 updateSensors;
+
+dataStep = 1;
 
 if world.record
 %     world.video = VideoWriter('data/video.avi'); %named in setRecordOn
@@ -18,8 +20,16 @@ for currentStep = 1:world.maxIter;
     updateObjects(currentStep);
     updateSensors;
     
-    %this currently only handles one sensor
-    data(currentStep,:) = readSensors;
+    %this currently only handles one sensor    
+    %this is (xy)/z - floor(xy/z) <= x/z
+    %this checks for when it is 'time' to read the data.
+    if  world.stepSize*currentStep/world.sampleRate - ...
+            floor(world.stepSize*currentStep/world.sampleRate) <= ...
+            world.stepSize/world.sampleRate
+        data(dataStep,:) = readSensors;
+        dataStep = dataStep + 1;
+    end
+        
     
 %     display(max(data(currentStep,:)));
     
@@ -113,12 +123,12 @@ cla;
 hold on;
 %draw object
 for obj = 1:length(world.objects);
-    drawObject(world.objects{obj});
+    drawObject(world.objects{obj},world.graphicsResolution);
 end
 
 %draw sensors
 for sen = 1:length(world.sensors);
-    drawSensor(world.sensors{sen});
+    drawSensor(world.sensors{sen},world.graphicsResolution);
 end
 
 view([0,-1,0]);

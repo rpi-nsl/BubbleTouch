@@ -1,6 +1,10 @@
-function senh = drawSensor(sensor)
+function senh = drawSensor(sensor,detail)
 
-[spherex,spherey,spherez] = sphere;
+if nargin < 2
+    detail = 20;
+end
+
+[spherex,spherey,spherez] = sphere(detail);
 
 t = ones(size(spherex));
 
