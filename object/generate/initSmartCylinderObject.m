@@ -3,6 +3,11 @@ function object = initSmartCylinderObject(cradius,cheight,capRadius)
 %sphereRadius determines the resolution, and is the radius size of the
 %spheres making the cylinder.
 
+if cheight <= 2*cradius
+    object = initCylinderObject(cradius,cheight,capRadius);
+    return
+end
+
 %id is way of distiguishing grouped objects
 object.id = 0; %zero indicates not added to world
 
@@ -23,9 +28,14 @@ object.planStep = 0;
 %cylinder with small spheres
 
 %string of spheres
+
 numSpheres = round((cheight-2*cradius)/capRadius)+1;
 H = capRadius*((1:numSpheres)-(numSpheres+1)/2);
 stringSpheres = [H',zeros(size(H')),zeros(size(H')),cradius*ones(size(H'))];
+% else
+%     stringSpheres = [];
+%     H = [0];
+% end
 
 %cap sides
 numRingSpheres = ceil(2*pi*cradius/capRadius);
@@ -36,6 +46,8 @@ ringZ = sin(0:1/numRingSpheres:2*pi)*(cradius-capRadius);
 %side
 numRings = round(cradius/capRadius);
 Hcap1 = capRadius*(1:numRings)+H(end);
+shiftAmount = cheight/2-capRadius-Hcap1(end); %makes exact height correct
+Hcap1 = Hcap1+shiftAmount;
 sideH = repmat(Hcap1,[length(ringY),1]);
 sideH = sideH(:);
 sideY = repmat(ringY',[length(Hcap1),1]);
@@ -43,6 +55,8 @@ sideZ = repmat(ringZ',[length(Hcap1),1]);
 cap1 = [sideH,sideY,sideZ,capRadius*ones(size(sideH))];
 
 Hcap2 = -capRadius*(1:numRings)+H(1);
+shiftAmount = -cheight/2+capRadius-Hcap1(end); %makes exact height correct
+Hcap1 = Hcap1+shiftAmount;
 sideH = repmat(Hcap2,[length(ringY),1]);
 sideH = sideH(:);
 cap2 = [sideH,sideY,sideZ,capRadius*ones(size(sideH))];

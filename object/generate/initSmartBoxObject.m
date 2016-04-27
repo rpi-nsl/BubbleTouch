@@ -12,7 +12,7 @@ object.orientation = [1,0,0;
 object.velocity = [0;0;0];
 object.angularVelocity = [0;0;0];
 
-%plan is a set of times (timestep t) when the velocity (future: acceration)
+%plan is a set of times (timestep t) when the velocity
 %changes and the new velocities (v)
 object.plan = [];
 %The current step of the plan being executed
@@ -47,6 +47,32 @@ end
 L = radius*((1:numL)-(numL+1)/2);
 W = radius*((1:numW)-(numW+1)/2);
 H = radius*((1:numH)-(numH+1)/2);
+
+%enforce dimensions
+%length
+shiftAmount = ((L(end)-L(1)+2*radius)-blength)/2;
+L(1) = L(1) + shiftAmount;
+L(end) = L(end) - shiftAmount;
+%make even spacing for rest of layers
+if length(L) > 2
+    L(2:end-1) = (L(end)-L(1))/(2*shiftAmount+blength-2*radius)*L(2:end-1);
+end
+%width
+shiftAmount = ((W(end)-W(1)+2*radius)-bwidth)/2;
+W(1) = W(1) + shiftAmount;
+W(end) = W(end) - shiftAmount;
+%make even spacing for rest of layers
+if length(W) > 2
+    W(2:end-1) = (W(end)-W(1))/(2*shiftAmount+bwidth-2*radius)*W(2:end-1);
+end
+%height
+shiftAmount = ((H(end)-H(1)+2*radius)-bheight)/2;
+H(1) = H(1) + shiftAmount;
+H(end) = H(end) - shiftAmount;
+%make even spacing for rest of layers
+if length(H) > 2
+    H(2:end-1) = (H(end)-H(1))/(2*shiftAmount+bheight-2*radius)*H(2:end-1);
+end
 
 %top
 topL = repmat(L,[length(W),1]);

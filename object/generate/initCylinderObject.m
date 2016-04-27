@@ -29,6 +29,13 @@ numRings = round(cheight/sphereRadius);
 %sphereSpacing = radius (distance between sphere centers
 
 H = sphereRadius*((1:numRings)-(numRings+1)/2);
+shiftAmount = ((H(end)-H(1)+2*sphereRadius)-cheight)/2;
+H(1) = H(1) + shiftAmount;
+H(end) = H(end) - shiftAmount;
+%make even spacing for rest of layers
+if length(H) > 2
+    H(2:end-1) = (H(end)-H(1))/(2*shiftAmount+cheight-2*sphereRadius)*H(2:end-1);
+end
 %side
 sideH = repmat(H,[length(ringY),1]);
 sideH = sideH(:);

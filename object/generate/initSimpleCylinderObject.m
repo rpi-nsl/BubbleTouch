@@ -1,6 +1,7 @@
 function object = initSimpleCylinderObject(cradius,cheight,resolution)
 %this function generates a cylinder from a string of spheres
-%resolution is distance between sphere centers
+%resolution is distance between sphere centers, this does not strictly
+%enforce cylinder height as cylinder height is ambiguous
 
 %id is way of distiguishing grouped objects
 object.id = 0; %zero indicates not added to world
