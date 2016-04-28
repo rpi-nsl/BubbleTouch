@@ -1,5 +1,5 @@
 %% World
-numSteps = 100; timestep = 0.001; sampleRate = 0.001;
+numSteps = 25; timestep = 0.001; sampleRate = 0.001;
 initWorld(numSteps,timestep,sampleRate);
 setWorldGraphicsResolution(5);
 
@@ -7,6 +7,8 @@ setWorldGraphicsResolution(5);
 %% Sensor
 sensor = initRectangularSensor(64,64,.002,0,.02);
 addSensor(sensor);
+
+resolution_radius = 0.005;
 
 can_names = {'202x204', '202x214', '211x109', '211x212', '211x304', '211x400',...
         '300x109', '300x400', '300x407', '301x106', '301x408', '303x406',...
@@ -20,11 +22,13 @@ diameters = 0.001*[ 54.0,  54.0,  68.3,  68.3,  68.3,  68.3,...
                    87.3, 103.2, 108.0, 108.0, 157.2, 157.2,...
                    81.0, 157.2, 157.2];
                    
-heights   = 0.001*[ 57.2,  73.0,  39.7,  69.9,  82.6, 101.6,...
+can_heights   = 0.001*[ 57.2,  73.0,  39.7,  69.9,  82.6, 101.6,...
                    39.7, 101.6, 112.7,  34.9, 114.3, 111.1,...
                    46.0,  51.2,  85.7, 101.6, 115.9, 142.9,...
                   146.1, 119.1,  87.3, 177.8, 109.5, 114.3,...
                   141.3, 177.8, 222.0];
+
+heights = 2*resolution_radius*ones(size(diameters));
                    
 density = 1000;
 
@@ -32,7 +36,7 @@ rotationMatrix = kth2R([0;1;0],pi/2);
 
     
 
-minT = -20; %millimeters
+minT = 0; %millimeters
 maxT = 20;  %millimeters
 stepSizeT = 1;
 for translationX = minT:stepSizeT:maxT
@@ -48,11 +52,11 @@ for translationX = minT:stepSizeT:maxT
 
             filename = strcat(can_names{can_iter},'upright_translationx',...
                 num2str(translationX),'translationy',num2str(translationY),'_classification');
-            can = initSmartCylinderObject(diameters(can_iter)/2,heights(can_iter),0.002);
+            can = initSmartCylinderObject(diameters(can_iter)/2,heights(can_iter),resolution_radius);
             RObj = getObjOrientation(can);
             can = setObjOrientation(can,rotationMatrix*RObj);
-            can = setObjPosition(can,[0.001*translationX;0.001*translationY;heights(can_iter)/2+0.025]);
-            can = setObjMass(can,density*heights(can_iter)*diameters(can_iter)^2/4*pi);
+            can = setObjPosition(can,[0.001*translationX;0.001*translationY;heights(can_iter)/2+0.022]);
+            can = setObjMass(can,density*can_heights(can_iter)*diameters(can_iter)^2/4*pi);
             addObject(can);
 
             %start experiment
@@ -62,7 +66,7 @@ for translationX = minT:stepSizeT:maxT
             %save data
             name = can_names{can_iter};
             label_num = can_iter;
-            height = heights(can_iter);
+            height = can_heights(can_iter);
             save(strcat('data/classification_data/tincans/',filename,'.mat'),'data','label_num','name','height');
         end
     end   

@@ -2,7 +2,7 @@ function data = simStart(graphics)
 
 global world;
 
-data = zeros([world.maxIter*world.sampleRate/world.stepSize,size(world.sensors{1}.taxels,1)]);
+data = zeros([world.maxIter*world.stepSize/world.sampleRate,size(world.sensors{1}.taxels,1)]);
 
 %initialize sensor values (make sure currently set so can correctly update
 %object.
