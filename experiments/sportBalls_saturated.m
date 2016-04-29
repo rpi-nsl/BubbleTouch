@@ -53,7 +53,7 @@ for translationX = minT:stepSizeT:maxT
             addObject(ball);
 
             %start experiment
-    %         setRecordOn(filename);
+    %         setRecordOn(filename);git 
             data = simStart(false);
 
             %save data
