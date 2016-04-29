@@ -8,7 +8,7 @@ sensor = initRectangularSensor(64,64,.002,0,.02);
 addSensor(sensor);
 
 mesh = {'banana','block','cup','drill','largeclamp','medclamp','mustard','pear','scissors','sphere'};
-for mesh_iter = 1:length(mesh)
+for mesh_iter = 4:length(mesh)
     
     clearObjects;
     filename = strcat(mesh{mesh_iter},'_classification');
@@ -39,9 +39,9 @@ for mesh_iter = 1:length(mesh)
     addObject(object);
 
     %start experiment
-    setRecordOn(filename);
+%     setRecordOn(filename);
     data = simStart(true);
 
     %save data
-    save(strcat('data/',filename,'.mat'),'data');
+%     save(strcat('data/',filename,'.mat'),'data');
 end

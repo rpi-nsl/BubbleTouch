@@ -1,4 +1,4 @@
-function [sensor,object] = updateTaxels(sensor,object)
+function [sensor,object,objectMoved] = updateTaxels(sensor,object)
 % Currently this function will update taxel values if the passed object
 % increases the sensor value (further pushes on the taxel - it goes lower).
 % This is under the assumption that the taxels are reset to their maximum
@@ -16,8 +16,37 @@ while update
     objCentersinSFrame = sensor.orientation'*(objCenters-kron(sensor.position,ones(1,size(object.shape,1))));
     % cancatenate the radius to make spheres again
     objSpheres = [objCentersinSFrame',object.shape(:,4)];
+    
+    %% prelimary enforcement of taxels min value
+    %note, due to sphere contact, this will likely need to happen again,
+    %but doing it here has the benefit of only redoing it for the taxels in
+    %contact with the objects 'peak'.
+    objLowestPoint = min(objSpheres(:,3)-objSpheres(:,4));
+    % if object beyond sensor capabilities, move object
+    % TODO: moving object may not be best solution (and may not work when
+    % multiple sensors.
+    if objLowestPoint < sensor.MINZ
+        objectMoved = true;
+        update_dist = [0;0;sensor.MINZ - objLowestPoint];
+        %update objectSpheres position:
+        objSpheres(:,3) = objSpheres(:,3) + update_dist(3);
+        %update actual object position
+        %note: position is in world corredinates, so updates should be made
+        %in world cordinates
+        object.position = object.position+sensor.orientation*update_dist;
+        %should set this sensor to min value, reposition the object to
+        %enforce this, and then recheck all other sensor positions (should
+        %also make this a micro step so rotation occurs more correctly).
+        %Should also maintain a list of staterated taxels, so in force
+        %computation, can split the normal force evenly amongst these
+        %taxels, where the normal force is however amount needed to balance
+        %in this direction.  This will be trickier when having curved
+        %sensors
+    end
 
     %% find all the object's spheres that are in the column of each taxel (might be in contact)
+    % keep only spheres that could be in contact with sensor pad
+    objSpheres = objSpheres(objSpheres(:,3)-objSpheres(:,4) < sensor.MAXZ+sensor.RADIUS,:);
     % find the distance from object's spheres to the taxel columns (essentially
     % flatten spheres to the plane)
     D = pdist2(sensor.taxels(:,1:2),objSpheres(:,1:2)) - kron(objSpheres(:,4)',ones(size(sensor.taxels,1),1)) - sensor.RADIUS;
@@ -37,6 +66,7 @@ while update
                       - (sensor.taxels(j,1)-objSpheres(o,1)).^2 ...
                       - (sensor.taxels(j,2)-objSpheres(o,2)).^2 ).^(.5));
         if zhat < sensor.MINZ - epsilon 
+            objectMoved = true;
             update = true;
             update_dist = [0;0;sensor.MINZ - zhat];
             %position is in world corredinates, so updates should be made

@@ -56,10 +56,11 @@ for translationX = minT:stepSizeT:maxT
     %         setRecordOn(filename);git 
             data = simStart(false);
 
+
             %save data
             label = sport{ball_iter};
             label_num = ball_iter;
-            save(strcat('data/classification_data/sport_balls/',filename,'.mat'),'data','label','label_num');
+%             save(strcat('data/classification_data/sport_balls/',filename,'.mat'),'data','label','label_num');
         end
     end
 end

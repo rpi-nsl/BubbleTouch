@@ -42,11 +42,11 @@ end
 
 %update velocity
 %with Memory
-object.velocity = object.qsForceConstant*object.orientation*force + world.damper*object.velocity;
-object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
+% object.velocity = object.qsForceConstant*object.orientation*force + world.damper*object.velocity;
+% object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
 %MemoryLess
-%object.velocity = object.qsForceConstant*object.orientation*force;
-%object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
+object.velocity = object.qsForceConstant*object.orientation*force;
+object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
 
 %update position
 object.position = object.position + object.velocity*stepSize;
