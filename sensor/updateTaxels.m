@@ -26,6 +26,12 @@ while update
     % TODO: moving object may not be best solution (and may not work when
     % multiple sensors.
     if objLowestPoint < sensor.MINZ
+        if isfield(object,'static') && object.static
+            warning('object is set to static, so it technically should not be moved')
+            warning('this needs to be fixed in the future (sensor should move)');
+            %also need to somehow make sure object can be moved due to
+            %other sensors/update other previously computed sensors
+        end
         objectMoved = true;
         update_dist = [0;0;sensor.MINZ - objLowestPoint];
         %update objectSpheres position:

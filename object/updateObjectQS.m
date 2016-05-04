@@ -1,5 +1,11 @@
 function object = updateObjectQS(object,stepSize,currentStep)
 
+%static objects do not move (this check maybe should be in the main
+%function?
+if isfield(object,'static') && object.static
+    return
+end
+
 %initialize
 force = [0;0;0];
 torque = [0;0;0];
