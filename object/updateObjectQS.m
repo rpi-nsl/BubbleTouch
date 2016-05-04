@@ -1,5 +1,11 @@
 function object = updateObjectQS(object,stepSize,currentStep)
 
+%static objects do not move (this check maybe should be in the main
+%function?
+if isfield(object,'static') && object.static
+    return
+end
+
 %initialize
 force = [0;0;0];
 torque = [0;0;0];
@@ -42,11 +48,11 @@ end
 
 %update velocity
 %with Memory
-object.velocity = object.qsForceConstant*object.orientation*force + world.damper*object.velocity;
-object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
+% object.velocity = object.qsForceConstant*object.orientation*force + world.damper*object.velocity;
+% object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
 %MemoryLess
-%object.velocity = object.qsForceConstant*object.orientation*force;
-%object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
+object.velocity = object.qsForceConstant*object.orientation*force;
+object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
 
 %update position
 object.position = object.position + object.velocity*stepSize;

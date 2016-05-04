@@ -16,8 +16,9 @@ if world.record
     open(world.video);
 end
 for currentStep = 1:world.maxIter;
-    disp(currentStep*world.stepSize);
+    disp(currentStep*world.stepSize);    
     updateObjects(currentStep);
+    updateRobots(currentStep);
     updateSensors;
     
     %this currently only handles one sensor    
@@ -58,6 +59,17 @@ addObject(initSphereObject(10));
 world.scene = figure('units','normalized','outerposition',[0 0 1 1]);
 
 world.gravity = [0;0;-9.8];
+
+end
+
+function updateRobots(currentStep)
+
+%display('This function should update robot position');
+global world;
+
+for bot = 1:length(world.robots)
+    world.robots{bot} = updateRobot(world.robots{bot},world.stepSize,currentStep);
+end
 
 end
 

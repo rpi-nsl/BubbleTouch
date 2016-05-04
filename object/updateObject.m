@@ -1,5 +1,11 @@
 function object = updateObject(object,stepSize,currentStep)
 
+%static objects do not move (this check maybe should be in the main
+%function?
+if isfield(object.static) && object.static
+    return
+end
+
 object.position = object.velocity*stepSize+object.position;
 
 if object.planStep < size(object.plan,1) && ...

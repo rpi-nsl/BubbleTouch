@@ -11,6 +11,7 @@ end
 
 world.sensors = [];
 world.objects = [];
+world.robots = [];
 %world.addSensor(initRectangularSensor(10,10,1,0,2));
 %addObject(initSphereObject(10));
 

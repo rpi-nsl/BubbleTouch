@@ -8,7 +8,7 @@ setGravity([0;0;-9.8]);
 
 
 % object = initSimpleCylinderObject(.01,.05,.005);
-object = initCylinderObject(0.01,0.05,0.005);
+object = initSmartCylinderObject(0.01,0.05,0.005);
 object = setObjPosition(object,[0;0;.04]);
  object = setObjOrientation(object,kth2R([0,1,0],pi/20));
 % object = setObjVelocity(object,[0;0;-.01]);
