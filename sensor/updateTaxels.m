@@ -27,8 +27,8 @@ while update
     % multiple sensors.
     if objLowestPoint < sensor.MINZ
         if isfield(object,'static') && object.static
-            warning('object is set to static, so it technically should not be moved')
-            warning('this needs to be fixed in the future (sensor should move)');
+            warning(['object is set to static, so it technically should not be moved\n'...
+                'this needs to be fixed in the future (sensor should move)']);
             %also need to somehow make sure object can be moved due to
             %other sensors/update other previously computed sensors
         end
@@ -87,6 +87,12 @@ while update
             %in this direction.  This will be trickier when having curved
             %sensors
             warning('SENSOR OUT OF RANGE');
+            if isfield(object,'static') && object.static
+                warning('object is set to static, so it technically should not be moved')
+                warning('this needs to be fixed in the future (sensor should move)');
+                %also need to somehow make sure object can be moved due to
+                %other sensors/update other previously computed sensors
+            end
             break;
         end
         % only updates if this taxel needs to be further pressed
