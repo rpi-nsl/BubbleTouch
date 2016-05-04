@@ -11,6 +11,7 @@ for sensor = 1:length(robot.sensors)
         robot.orientation*robot.sensorsPosition{sensor};
     robot.sensors{sensor}.orientation = robot.orientation*robot.sensorsOrientation{sensor};
     robot.sensorsID(sensor) = addSensor(robot.sensors{sensor});
+    robot.sensorsIndex(sensor) = findSensorInWorld(robot.sensorsID(sensor));
 end
 
 %add robot

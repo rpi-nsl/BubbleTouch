@@ -5,10 +5,9 @@ global world
 %update position
 robot.position = robot.velocity*stepSize+robot.position;
 
-%update sensor positions
 for sensor = 1:length(robot.sensorsID)
-    world.sensors{robot.sensorsID(sensor)}.position = robot.position + ...
-        robot.orientation*robot.sensorsPosition{robot.sensorsID(sensor)};
+    world.sensors{robot.sensorsIndex(sensor)}.position = robot.position + ...
+        robot.orientation*robot.sensorsPosition{robot.sensorsIndex(sensor)};
 end
 
 %future update orientation and sensors orientation

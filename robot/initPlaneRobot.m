@@ -24,6 +24,7 @@ robot.planStep = 0;
 %a robot has S sensors.
 robot.sensors{1} = initRectangularSensor(sizeX,sizeY,elementRadius,minZ,maxZ);
 robot.sensorsID = zeros(size(robot.sensors));
+robot.sensorsIndex = zeros(size(robot.sensors));
 %sensorsPosition is a cell array of position vectors of the sensors in the
 %robot's frame
 robot.sensorsPosition{1} = [0;0;0];
