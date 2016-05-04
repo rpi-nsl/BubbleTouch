@@ -37,15 +37,18 @@ masses  = 0.001*[411, 514, 187,  97, 363,...
                  794, 113, 234, 408, 453,...
                  142];
 
-minT = 0; %millimeters
-maxT = 20;  %millimeters
+minT = 1; %millimeters
+maxT = 10;  %millimeters
 minAngle =  0; %degrees
 maxAngle = 30; %degrees
 stepSizeT = 1;
-for translationX = minT:stepSizeT:maxT
+for translationX = 1:stepSizeT:maxT
     for translationY = minT:stepSizeT:maxT
         for rotationAngle = minAngle:maxAngle
+%         rotationAngle = 0;
             rotationMatrix = kth2R([0;0;1],rotationAngle*pi/180);
+            
+% tic
 
             for box_iter = 1:length(box_names)
 
@@ -76,6 +79,8 @@ for translationX = minT:stepSizeT:maxT
                 height = heights(box_iter);
                 save(strcat('data/classification_data/boxes/',filename,'.mat'),'data','label_num','name','height');
             end
+            
+%             toc
         end
     end   
 end
