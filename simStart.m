@@ -2,7 +2,7 @@ function data = simStart(graphics)
 
 global world;
 
-data = zeros([world.maxIter*world.stepSize/world.sampleRate,size(world.sensors{1}.taxels,1)]);
+data = zeros([ceil(world.maxIter*world.stepSize/world.sampleRate),size(world.sensors{1}.taxels,1)]);
 
 %initialize sensor values (make sure currently set so can correctly update
 %object.
@@ -29,13 +29,15 @@ for currentStep = 1:world.maxIter;
             world.stepSize/world.sampleRate
         data(dataStep,:) = readSensors;
         dataStep = dataStep + 1;
-    end
+    
         
     
 %     display(max(data(currentStep,:)));
     
     if graphics
         updateGraphics;
+    end
+    
     end
 end
 
@@ -143,6 +145,8 @@ for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen},world.graphicsResolution);
 end
 
+zlim([0,.2])
+xlim([-.2,.2])
 view([0,-1,0]);
 
 if world.record

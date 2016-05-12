@@ -42,8 +42,16 @@ end
 %TODO: torque
 
 
-%compute external force and torque
+%compute external force and torque (a.k.a., planned' force)
 %TODO: force
+%verify step of the plan.
+if object.planStep < size(object.plan,1) && currentStep*stepSize >= object.plan(object.planStep+1,1)
+    object.planStep = object.planStep+1;
+end
+%incorporate plan
+if object.planStep ~= 0
+    force = force + object.orientation'*object.plan(object.planStep,2:4)';
+end
 %TODO: torque
 
 %update velocity
