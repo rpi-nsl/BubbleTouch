@@ -27,6 +27,7 @@ for currentStep = 1:world.maxIter;
     if  world.stepSize*currentStep/world.sampleRate - ...
             floor(world.stepSize*currentStep/world.sampleRate) <= ...
             world.stepSize/world.sampleRate
+%         data(dataStep,:) = gather(readSensors);
         data(dataStep,:) = readSensors;
         dataStep = dataStep + 1;
     

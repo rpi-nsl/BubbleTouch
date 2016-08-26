@@ -55,6 +55,7 @@ while update
     objSpheres = objSpheres(objSpheres(:,3)-objSpheres(:,4) < sensor.MAXZ+sensor.RADIUS,:);
     % find the distance from object's spheres to the taxel columns (essentially
     % flatten spheres to the plane)
+%     D = pdist2(gather(sensor.taxels(:,1:2)),gather(objSpheres(:,1:2))) - kron(objSpheres(:,4)',ones(size(sensor.taxels,1),1)) - sensor.RADIUS;
     D = pdist2(sensor.taxels(:,1:2),objSpheres(:,1:2)) - kron(objSpheres(:,4)',ones(size(sensor.taxels,1),1)) - sensor.RADIUS;
     % find all taxels with at least one sphere in its column.
     taxelInd = find(min(D,[],2) < 0);
