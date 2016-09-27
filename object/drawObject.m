@@ -24,6 +24,9 @@ gy = spherey.*r+y;
 gz = spherez.*r+z;
 
 objh = surf(gx,gy,gz,'EdgeColor','none','LineStyle','none','FaceColor',[0,0,.6],'FaceLighting','phong');
+% light('Position',[-1 -1 1],'Style','local')
+light('Position',[1 1 -1],'Style','local')
+view([.7,0,-1]);
 % set(objh,'FaceColor',[0,0,1]);
 axis equal;
 

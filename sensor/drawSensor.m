@@ -23,6 +23,8 @@ gy = spherey+y;
 gz = spherez+z;
 
 senh = surf(gx,gy,gz,'EdgeColor','none','LineStyle','none','FaceColor',[.6,0,0],'FaceLighting','phong');
+light('Position',[-1 -1 1],'Style','local')
+% view([1,-1,1]);
 % set(senh,'FaceColor',[1,0,0]);
 axis equal;
 

@@ -125,7 +125,7 @@ global world;
 %access correct figure;
 if isempty(world.scene)
     world.scene = figure('units','normalized','outerposition',[0 0 1 1]);
-    view([0,1,0]);
+    view([-.4,-1,.1]);
 end
 figure(world.scene);
 %clear figure
@@ -146,9 +146,13 @@ for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen},world.graphicsResolution);
 end
 
+view([-.4,-1,.1]);
+
 zlim([0,.2])
 xlim([-.2,.2])
-view([0,-1,0]);
+[az,el] = view
+% view([-az,el])
+% view([-1,-1,-1]);
 
 if world.record
     subh2 = subplot(1,2,2);
