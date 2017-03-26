@@ -81,9 +81,22 @@ function updateObjects(currentStep)
 %display('This function should update object position');
 global world;
 
-for obj = 1:length(world.objects)
-%     world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
-    world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
+if strcmp(world.type,'quasistatic')
+    for obj = 1:length(world.objects)
+    %     world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
+        world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
+    end
+elseif strcmp(world.type,'kinematic')
+    for obj = 1:length(world.objects)
+        world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
+%         world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
+    end
+else 
+    warning('unrecognized update model: acceptable models are quasistatic and kinematic\nDefaulting to quasistatic');
+    for obj = 1:length(world.objects)
+    %     world.objects{obj} = updateObject(world.objects{obj},world.stepSize,currentStep);
+        world.objects{obj} = updateObjectQS(world.objects{obj},world.stepSize,currentStep);
+    end
 end
 
 end
@@ -146,11 +159,11 @@ for sen = 1:length(world.sensors);
     drawSensor(world.sensors{sen},world.graphicsResolution);
 end
 
-view([-.4,-1,.1]);
-
+% view([-.4,-1,.1]);
+view([0,1,0]);
 zlim([0,.2])
 xlim([-.2,.2])
-[az,el] = view
+[az,el] = view;
 % view([-az,el])
 % view([-1,-1,-1]);
 

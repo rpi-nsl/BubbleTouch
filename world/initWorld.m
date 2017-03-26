@@ -1,4 +1,8 @@
-function initWorld(maxIter,stepSize,sampleRate)
+function initWorld(maxIter,stepSize,sampleRate,updateModel)
+
+%sampleRate is optional, defaults to stepSize (taking a sample every step)
+%updateModel is optional, defaults to 'quasistatic' (other option is
+% 'kinematic')
 
 global world;
 world.maxIter = maxIter;
@@ -7,6 +11,11 @@ if nargin > 2
     world.sampleRate = sampleRate;
 else
     world.sampleRate = stepSize;
+end
+if nargin > 3
+    world.type = updateModel
+else
+    world.type = 'quasistatic';
 end
 
 world.sensors = [];
@@ -19,7 +28,7 @@ world.scene = [];
 
 %quasi-static variables
 world.gravity = [0;0;-9.8];
-%how much previous velocity is remembered
+%how much previous velocity is remembered (nonzero is no-longer technically quasi-static)
 world.damper = 0;
 
 %video
