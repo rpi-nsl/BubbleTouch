@@ -2,7 +2,7 @@ function object = computeInertiaTensor(object)
 
 %Ixx = sum((y_i^2+z_i^2)*m_i)
 %Iyy = sum((x_i^2+z_i^2)*m_i)
-%Izz = sum((x_i^2+y_9^2)*m_i)
+%Izz = sum((x_i^2+y_i^2)*m_i)
 %Ixy = Iyx = sum(x_i*y_i*m_i)
 %Ixz = Iyx = sum(x_i*z_i*m_i)
 %Iyz = Iyx = sum(y_i*z_i*m_i)
