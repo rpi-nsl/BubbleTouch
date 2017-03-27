@@ -12,7 +12,7 @@ torque = [0;0;0];
 
 global world
 
-%compute force and torque from world (eg gravity) (in object frame)
+%compute force and torque from world (eg gravity) (in object frame, centered at cog)
 worldForce = computeWorldForce(object);
 %TODO: any world torques (gravity does not have one)
 
@@ -63,8 +63,8 @@ end
 %object velocity is in world frame
 object.velocity = object.qsForceConstant*object.orientation*force;
 % object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
-object.angularVelocity = object.qsTorqueConstant*torque; %in body frame
-object.angularVelocity = torque; %in body frame
+object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check)
+% object.angularVelocity = torque; %in body frame 
 
 %update position
 %object position and orientation are in world frame

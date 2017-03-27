@@ -35,4 +35,4 @@ contactNormals = contactNormals./(sensor.RADIUS+kron(object.shape(sensor.taxelsC
 contactLocations = contactNormals.*sensor.RADIUS + cTaxels;
 
 %update force to correct direction
-% force = kron(sum(force.*contactNormals,1),ones(3,1)).*contactNormals;
+force = kron(sum(force.*contactNormals,1),ones(3,1)).*contactNormals;

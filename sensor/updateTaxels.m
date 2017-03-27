@@ -52,7 +52,11 @@ while update
 
     %% find all the object's spheres that are in the column of each taxel (might be in contact)
     % keep only spheres that could be in contact with sensor pad
-    objSpheres = objSpheres(objSpheres(:,3)-objSpheres(:,4) < sensor.MAXZ+sensor.RADIUS,:);
+%     objSpheres(objSpheres(:,3)-objSpheres(:,4) <
+%     sensor.MAXZ+sensor.RADIUS,:);  %old method, but caused taxelsContact
+%                                    %to link to wrong object spheres.
+    objSpheresInd = find(objSpheres(:,3)-objSpheres(:,4) < sensor.MAXZ+sensor.RADIUS);
+    objSpheres = objSpheres(objSpheresInd,:);    
     % find the distance from object's spheres to the taxel columns (essentially
     % flatten spheres to the plane)
 %     D = pdist2(gather(sensor.taxels(:,1:2)),gather(objSpheres(:,1:2))) - kron(objSpheres(:,4)',ones(size(sensor.taxels,1),1)) - sensor.RADIUS;
@@ -99,7 +103,7 @@ while update
         % only updates if this taxel needs to be further pressed
         if zhat < sensor.taxels(j,3)
             taxels_heights(j) = zhat;
-            taxelsContact(j,:) = [object.id, o(o_ind)];
+            taxelsContact(j,:) = [object.id, objSpheresInd(o(o_ind))];
         end    
     end
     if ~update
