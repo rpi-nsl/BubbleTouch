@@ -1,4 +1,4 @@
-initWorld(100,.01);
+initWorld(100,.01,[],'kinematic');
 
 object = initPLYMeshObject('drill.ply');
 object = setObjPosition(object,[-.1;-.02;.05]);

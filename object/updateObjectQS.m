@@ -44,7 +44,6 @@ end
 
 %compute external force and torque (a.k.a., planned' force) (in object
 %frame) (plans are stored in world frame)
-%TODO: force
 %verify step of the plan.
 if object.planStep < size(object.plan,1) && currentStep*stepSize >= object.plan(object.planStep+1,1)
     object.planStep = object.planStep+1;
@@ -52,8 +51,8 @@ end
 %incorporate plan
 if object.planStep ~= 0
     force = force + object.orientation'*object.plan(object.planStep,2:4)';
+    torque = torque + object.orientation'*object.plan(object.planStep,5:7)';
 end
-%TODO: torque
 
 %update velocity
 %with Memory
@@ -61,6 +60,11 @@ end
 % object.angularVelocity = object.orientation*object.qsTorqueConstant*torque + world.damper*object.angularVelocity;
 %MemoryLess
 %object velocity is in world frame
+%TODO: Probably should change qsForceConstant to reflect number of taxels
+%in contact with the object. (This will 'become' moot if solve all
+%components at one time.) (the next line is a possible way to address
+%this.)
+% object.velocity = 1.7/(size(sensorForce,2)+1)*object.orientation*force;
 object.velocity = object.qsForceConstant*object.orientation*force;
 % object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
 object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check)

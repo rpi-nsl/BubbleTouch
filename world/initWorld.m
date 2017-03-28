@@ -7,13 +7,13 @@ function initWorld(maxIter,stepSize,sampleRate,updateModel)
 global world;
 world.maxIter = maxIter;
 world.stepSize = stepSize;
-if nargin > 2
+if nargin > 2 && ~isempty(sampleRate)
     world.sampleRate = sampleRate;
 else
     world.sampleRate = stepSize;
 end
 if nargin > 3
-    world.type = updateModel
+    world.type = updateModel;
 else
     world.type = 'quasistatic';
 end

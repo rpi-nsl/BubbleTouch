@@ -4,8 +4,12 @@ if size(times,2) > size(times,1)
     times = times';
 end
 
-if size(velocities,2) ~= 3
-    error('velocities size is not nx3');
+if size(velocities,2) ~= 3 && size(velocities,2) ~= 6
+    error('velocities size is not nx3 (just linear) or nx6 (linear and angular)');
+end
+
+if size(velocities,2) == 3
+    velocities = [velocities, zeros(size(velocities))];
 end
 
 if size(times,2) ~= 1
