@@ -11,14 +11,24 @@ if isempty(taxelsInd)
     return
 end
 
-%compute applied force per contact (f = xk)
-force = zeros(3,length(taxelsInd));
-force(3,:) = (sensor.MAXZ - sensor.taxels(taxelsInd,3)')*sensor.springConstant;
-%convert force to object frame
+%compute spring force per contact (f = xk) as magnitude
+force = (sensor.MAXZ - sensor.taxels(taxelsInd,3)')*sensor.springConstant;
+%compute the direction in object frame
+force_direction = zeros(3,length(taxelsInd));
+force_direction(3,:) = ones(1,length(taxelsInd));
 %first convert from sensor frame to world frame
-force = sensor.orientation*force;
+force_direction = sensor.orientation*force_direction;
 %then convert from world frame to object frame
-force = object.orientation'*force;
+force_direction = object.orientation'*force_direction;
+
+% %OLD METHOD: compute applied force per contact (f = xk) (as vector)
+% force = zeros(3,length(taxelsInd));
+% force(3,:) = (sensor.MAXZ - sensor.taxels(taxelsInd,3)')*sensor.springConstant;
+% %convert force to object frame
+% %first convert from sensor frame to world frame
+% force = sensor.orientation*force;
+% %then convert from world frame to object frame
+% force = object.orientation'*force;
 
 %compute contact location (in object frame)
 %get taxels
@@ -35,4 +45,4 @@ contactNormals = contactNormals./(sensor.RADIUS+kron(object.shape(sensor.taxelsC
 contactLocations = contactNormals.*sensor.RADIUS + cTaxels;
 
 %update force to correct direction
-force = kron(sum(force.*contactNormals,1),ones(3,1)).*contactNormals;
+force = kron((force./(sum(force_direction.*contactNormals,1))),ones(3,1)).*contactNormals;
