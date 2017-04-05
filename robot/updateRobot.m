@@ -2,6 +2,13 @@ function robot = updateRobot(robot,stepSize,currentStep)
 
 global world
 
+if robot.planStep < size(robot.plan,1) && ...
+        currentStep*stepSize >= robot.plan(robot.planStep+1,1)
+    robot.planStep = robot.planStep+1;
+    robot.velocity = robot.plan(robot.planStep,2:4)';
+    robot.angularVelocity = robot.plan(robot.planStep,5:7)';
+end
+
 %update position
 robot.position = robot.velocity*stepSize+robot.position;
 
@@ -21,11 +28,6 @@ for sensor = 1:length(robot.sensorsID)
         robot.orientation*robot.sensorsOrientation{robot.sensorsID(sensor)};
 end
 
-if robot.planStep < size(robot.plan,1) && ...
-        currentStep*stepSize >= robot.plan(robot.planStep+1,1)
-    robot.planStep = robot.planStep+1;
-    robot.velocity = robot.plan(robot.planStep,2:4)';
-    robot.angularVelocity = robot.plan(robot.planStep,5:7)';
-end
+
 
 end
