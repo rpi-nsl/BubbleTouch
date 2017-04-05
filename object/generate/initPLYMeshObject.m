@@ -33,7 +33,7 @@ object.shape = [c,r]; %[x,y,z,r]
 %quasi-static variables
 object.cog = mean(c)';
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 object = computeObjInertiaTensor(object);
 object.qsTorqueConstant = eye(3);
 

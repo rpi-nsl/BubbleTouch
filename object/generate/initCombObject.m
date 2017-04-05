@@ -82,7 +82,7 @@ object.shape = [[back,radius*ones(length(back),1)];[teeth,radius*ones(length(tee
 %quasi-static variables
 object.cog = [0;0;0];
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 % object.inertia = [.25*(cwidth*cwidth+bheight*bheight)/3 0 0;
 %                   0 .25*(clength*clength+bheight*bheight)/3 0;
 %                   0 0 .25*(clength*clength+cwidth*cwidth)/3];

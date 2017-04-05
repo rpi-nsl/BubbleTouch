@@ -26,7 +26,7 @@ object.shape = [0,0,0,radius]; %[x,y,z,r]
 %quasi-static variables
 object.cog = [0;0;0];
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 object.inertia = eye(3)*radius*radius*2/5;
 object.qsTorqueConstant = eye(3);
 

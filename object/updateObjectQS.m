@@ -16,6 +16,9 @@ global world
 worldForce = computeWorldForce(object);
 %TODO: any world torques (gravity does not have one)
 
+%NOTE: temporary until implement fully quasistatic taxels
+objectDampingCoefficent = 
+
 if ~isempty(worldForce)
     force = force + worldForce;
 end
@@ -67,7 +70,7 @@ end
 % object.velocity = 1.7/(size(sensorForce,2)+1)*object.orientation*force;
 object.velocity = object.qsForceConstant*object.orientation*force;
 % object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
-object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check)
+object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check - checked, does not matter)
 % object.angularVelocity = torque; %in body frame 
 
 %update position

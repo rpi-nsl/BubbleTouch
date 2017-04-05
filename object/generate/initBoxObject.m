@@ -98,7 +98,7 @@ object.shape = [top;bottom;left;right;front;back];
 %quasi-static variables
 object.cog = [0;0;0];
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 object.inertia = [.25*(bwidth*bwidth+bheight*bheight)/3 0 0;
                   0 .25*(blength*blength+bheight*bheight)/3 0;
                   0 0 .25*(blength*blength+bwidth*bwidth)/3];

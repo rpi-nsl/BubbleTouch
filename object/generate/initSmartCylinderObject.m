@@ -84,7 +84,7 @@ object.shape = [stringSpheres;cap1;cap2;end1;end2];
 %quasi-static variables
 object.cog = [0;0;0];
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 object.inertia = [.5*(cradius*cradius) 0 0;
                   0 .25*(cradius*cradius + cheight*cheight/3) 0;
                   0 0 .25*(cradius*cradius + cheight*cheight/3)];

@@ -34,7 +34,7 @@ object.shape = [H',zeros(size(H')),zeros(size(H')),cradius*ones(size(H'))];
 %quasi-static variables
 object.cog = [0;0;0];
 object.mass = 1;
-object.qsForceConstant = 1;
+object.qsForceConstant = eye(3);
 object.inertia = [.5*(cradius*cradius) 0 0;
                   0 .25*(cradius*cradius + cheight*cheight/3) 0;
                   0 0 .25*(cradius*cradius + cheight*cheight/3)];
