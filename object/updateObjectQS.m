@@ -17,13 +17,15 @@ worldForce = computeWorldForce(object);
 %TODO: any world torques (gravity does not have one)
 
 %NOTE: temporary until implement fully quasistatic taxels
-objectDampingCoefficent = 
+% objectDampingCoefficent = 
 
 if ~isempty(worldForce)
     force = force + worldForce;
 end
 
+
 %compute force and torque from sensors) (in object frame)
+springDamper = 0.001;td = zeros(3);
 for sen = 1:length(world.sensors)
     %compute from sensor
     [sensorForce,locations] = computeSensorForce(object,world.sensors{sen});
@@ -37,6 +39,7 @@ for sen = 1:length(world.sensors)
     %TODO: torque
     torqueRadii = locations-kron(object.cog,ones(1,size(locations,2)));
     sensorTorque = cross(torqueRadii,sensorForce);
+    td = cross(torqueRadii,[zeros(2,size(sensorForce,2));springDamper*ones(1,size(sensorForce,2))]);
     torque = torque + sum(sensorTorque,2);
 end
 
@@ -56,6 +59,9 @@ if object.planStep ~= 0
     force = force + object.orientation'*object.plan(object.planStep,2:4)';
     torque = torque + object.orientation'*object.plan(object.planStep,5:7)';
 end
+% springDamper = 0.01;
+fc = eye(3)*object.mass/.01+object.orientation'*[0,0,0;0,0,0;0,0,1]*size(sensorForce,2)*springDamper;
+tc = object.inertia/.01 +object.orientation'* [zeros(3,2),sum(td,2)];
 
 %update velocity
 %with Memory
@@ -68,10 +74,13 @@ end
 %components at one time.) (the next line is a possible way to address
 %this.)
 % object.velocity = 1.7/(size(sensorForce,2)+1)*object.orientation*force;
-object.velocity = object.qsForceConstant*object.orientation*force;
+% object.velocity = object.qsForceConstant*object.orientation*force;
+object.velocity = inv(fc)*object.orientation*force;
 % object.angularVelocity = object.orientation*object.qsTorqueConstant*torque;
-object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check - checked, does not matter)
+% object.angularVelocity = object.qsTorqueConstant*torque; %in body frame (need to check - checked, does not matter)
+object.angularVelocity = inv(tc)*torque; %in body frame (need to check - checked, does not matter)
 % object.angularVelocity = torque; %in body frame 
+disp(norm(torque));
 
 %update position
 %object position and orientation are in world frame

@@ -5,5 +5,6 @@ function object = computeObjQSConstants(object,timestep)
 %TODO: force constant related to surface area
 object.qsForceConstant = timestep/object.mass*eye(3);
 object.qsTorqueConstant = timestep*inv(object.inertia);
+% object.qsTorqueConstant = timestep*object.inertia;
 
 end
