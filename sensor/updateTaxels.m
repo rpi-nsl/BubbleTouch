@@ -17,6 +17,17 @@ while update
     % cancatenate the radius to make spheres again
     objSpheres = [objCentersinSFrame',object.shape(:,4)];
     
+        %remove sphere outside of tactile plane
+%     ind = find(objSpheres(:,1)+obj.shape(:,4) < max(sensor.taxels(:,1))+sensor.RADIUS && ...
+%         objSpheres(:,1)-objSpheres(:,4) > min(sensor.taxels(:,1))-sensor.RADIUS && ...
+%         objSpheres(:,1)+objSpheres(:,4) < max(sensor.taxels(:,2))+sensor.RADIUS && ...
+%         objSpheres(:,1)-objSpheres(:,4) > max(sensor.taxels(:,1))-sensor.RADIUS);
+    
+    objSpheres = objSpheres(objSpheres(:,1)+objSpheres(:,4) < max(sensor.taxels(:,1))+sensor.RADIUS & ...
+        objSpheres(:,1)-objSpheres(:,4) > min(sensor.taxels(:,1))-sensor.RADIUS & ...
+        objSpheres(:,2)+objSpheres(:,4) < max(sensor.taxels(:,2))+sensor.RADIUS & ...
+        objSpheres(:,2)-objSpheres(:,4) > min(sensor.taxels(:,2))-sensor.RADIUS,:);
+    
     %% prelimary enforcement of taxels min value
     %note, due to sphere contact, this will likely need to happen again,
     %but doing it here has the benefit of only redoing it for the taxels in
@@ -27,8 +38,8 @@ while update
     % multiple sensors.
     if objLowestPoint < sensor.MINZ
         if isfield(object,'static') && object.static
-            warning(['object is set to static, so it technically should not be moved\n'...
-                'this needs to be fixed in the future (sensor should move)']);
+%             warning(['object is set to static, so it technically should not be moved\n'...
+%                 'this needs to be fixed in the future (sensor should move)']);
             %also need to somehow make sure object can be moved due to
             %other sensors/update other previously computed sensors
         end
@@ -91,10 +102,10 @@ while update
             %taxels, where the normal force is however amount needed to balance
             %in this direction.  This will be trickier when having curved
             %sensors
-            warning('SENSOR OUT OF RANGE');
+%             warning('SENSOR OUT OF RANGE');
             if isfield(object,'static') && object.static
-                warning('object is set to static, so it technically should not be moved')
-                warning('this needs to be fixed in the future (sensor should move)');
+%                 warning('object is set to static, so it technically should not be moved')
+%                 warning('this needs to be fixed in the future (sensor should move)');
                 %also need to somehow make sure object can be moved due to
                 %other sensors/update other previously computed sensors
             end
