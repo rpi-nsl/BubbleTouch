@@ -59,8 +59,8 @@ sideZ = repmat(ringZ',[length(Hcap1),1]);
 cap1 = [sideH,sideY,sideZ,capRadius*ones(size(sideH))];
 
 Hcap2 = -capRadius*(1:numRings)+H(1);
-shiftAmount = -cheight/2+capRadius-Hcap1(end); %makes exact height correct
-Hcap1 = Hcap1+shiftAmount;
+shiftAmount = -cheight/2+capRadius-Hcap2(end); %makes exact height correct
+Hcap2 = Hcap2+shiftAmount;
 sideH = repmat(Hcap2,[length(ringY),1]);
 sideH = sideH(:);
 cap2 = [sideH,sideY,sideZ,capRadius*ones(size(sideH))];

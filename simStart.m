@@ -16,7 +16,7 @@ if world.record
     open(world.video);
 end
 for currentStep = 1:world.maxIter;
-    disp(currentStep*world.stepSize);    
+%     disp(currentStep*world.stepSize);    
     updateObjects(currentStep);
     updateRobots(currentStep);
     updateSensors;
@@ -160,8 +160,8 @@ for sen = 1:length(world.sensors);
 end
 
 % view([-.4,-1,.1]);
-view([0,1,0]);
-zlim([0,.2])
+view([0,2,0]);
+% zlim([0,.2])
 xlim([-.2,.2])
 [az,el] = view;
 % view([-az,el])
