@@ -1,9 +1,9 @@
-#BubbleTouch: A Quasi-Static Tactile Skin Simulator
+# BubbleTouch: A Quasi-Static Tactile Skin Simulator
 
-##Introduction
+## Introduction
 The tool is designed to generate noiseless tactile signals.
 
-##Citation
+## Citation
 @article{hollis2018bubbletouch,
   title={BubbleTouch: A Quasi-Static Tactile Skin Simulator},
   author={Hollis, Brayden and Patterson, Stacy and Cui, Jinda and Trinkle, Jeff},
