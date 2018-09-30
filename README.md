@@ -1,7 +1,7 @@
 # BubbleTouch: A Quasi-Static Tactile Skin Simulator
 
 ## Introduction
-<pre>
+<p style="color:white">
 The tool is designed to generate noiseless tactile signals.
 A 3D object is approximated as a union of spheres, as shown: 
 <img src="https://github.com/rpi-nsl/BubbleTouch/blob/master/docs/drill.jpg" width="400">
@@ -12,7 +12,7 @@ A sensor array is a set of identical taxels. The array will deform the object is
 <img src="https://github.com/rpi-nsl/BubbleTouch/blob/master/docs/array.jpg" width="550">
 
 The simulator produces signals in taxel deformations, which can be converted to forces. 
-</pre>
+</p>
 
 ## Citation
 If our simulator is found useful in your work, please consider citing:
