@@ -33,4 +33,5 @@ If our simulator is found useful in your work, please consider citing:
 
 ## Usage
 An example script is provided.
+In this example, a 64 by 64 array is pressed against a drill for one second. 
 Please see "example.m" in the root directory for more details.
