@@ -32,3 +32,5 @@ If our simulator is found useful in your work, please consider citing:
 
 
 ## Usage
+An example script is provided.
+Please see "example.m" in the root directory for more details.
